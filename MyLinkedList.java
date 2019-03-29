@@ -65,9 +65,11 @@ public class MyLinkedList<E>{
         return ans;
     }
 
-    public E next(){ //it is fine to not check for index out of bounds since our implementation of next() never will have that condition
+    //returns the current value and iterates current to next element
+    public E forward(){ //it is fine to not check for index out of bounds since our implementation of next() never will have that condition
+        E ans = current.data();
         current = current.next();
-        return current.data();
+        return ans;
     }
 
     public String toString(){

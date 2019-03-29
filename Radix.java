@@ -24,7 +24,7 @@ public class Radix{
                 result.extend(buckets[bucket]);
             }
             for (int n = 0; n < data.length; n++){
-                data[n] = result.removeFront();
+                data[n] = result.forward();
             }
         }
     }
