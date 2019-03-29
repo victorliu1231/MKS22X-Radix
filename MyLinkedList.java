@@ -4,17 +4,13 @@ public class MyLinkedList<E>{
 
     public MyLinkedList(){ //make comments, special cases, fix second add method
       length = 0;
-      start = null;
-      end = null;
     }
 
     public void clear(){
-      length = 0;
-      start = null;
-      end = null;
+        length = 0;
     }
 
-    public boolean add(E value){
+    public void add(E value){
         Node newNode = new Node(value);
         if (length != 0){
           newNode.setPrev(end);
@@ -25,37 +21,25 @@ public class MyLinkedList<E>{
           end = newNode;
         }
         length++;
-        return true; //should always be true, cuz it should always be successful
+    }
+
+    public void extend(MyLinkedList<E> other){ //O(1) runtime
+        //first step is to link the loose ends of the LinkedLists
+        if (other.length == 0){
+            return;
+        }
+        if (this.length == 0){
+            start = other.start;
+        } else {
+            this.end.setNext(other.start);
+            //second step is to update the first LinkedList's end and length
+            this.length += other.length;
+            this.end = other.end;
+        }
     }
 
     public int size(){
         return length;
-    }
-
-    public String toString(){
-      Node current = start;
-      String str = "[";
-      //using the while loop and "current" method of indexing instead of getNode(), you avoid O(n^2) and just have O(n)
-      for (int n = 0; n < length; n++){ //if current IS null, that's the end, and this whole loop terminates
-        str+= current.data();
-        //below if statement just makes sure you aren't adding commas at the end of the list, and only in the middle
-        if (current.next() != null){
-            str+= ", ";
-        }
-        //the equivalent of indexing
-        current = current.next();
-      }
-      str += "]";
-      return str;
-    }
-
-    public E get(int index){
-        //if the index is out of bounds, necessary to throw the correct exception
-        if (index >= length || index < 0){
-            throw new IndexOutOfBoundsException();
-        }
-        //gets the data of the Node at index i
-      return getNode(index).data();
     }
 
     public E removeFront(){
@@ -76,19 +60,21 @@ public class MyLinkedList<E>{
         return ans;
     }
 
-    public void extend(MyLinkedList<E> other){ //O(1) runtime
-        //first step is to link the loose ends of the LinkedLists
-        if (other.length == 0){
-            return;
+    public String toString(){
+        Node current = start;
+        String str = "[";
+        //using the while loop and "current" method of indexing instead of getNode(), you avoid O(n^2) and just have O(n)
+        for (int n = 0; n < length; n++){ //if current IS null, that's the end, and this whole loop terminates
+          str+= current.data();
+          //below if statement just makes sure you aren't adding commas at the end of the list, and only in the middle
+          if (current.next() != null){
+              str+= ", ";
+          }
+          //the equivalent of indexing
+          current = current.next();
         }
-        if (this.length == 0){
-          start = other.start;
-        } else {
-          this.end.setNext(other.start);
-        }
-        //second step is to update the first LinkedList's end and length
-        this.length += other.length;
-        this.end = other.end;
+        str += "]";
+        return str;
     }
 
     public String toStringDebug(){
@@ -118,15 +104,15 @@ public class MyLinkedList<E>{
         return str;
     }
 
-    public class Node {
+    public class Node{
         private E data;
         private Node next,prev;
-
+        
         //I think this whole class is pretty self explanatory
-        public Node(int data){
+        public Node(E data){
             this.data = data;
         }
-
+    
         public void setNext(Node other){
             next = other;
         }
@@ -142,8 +128,8 @@ public class MyLinkedList<E>{
         public void setData(E value){
             data = value;
         }
-        public int data(){
-          return data;
+        public E data(){
+            return data;
         }
         public String toString(){
             return ""+data;
