@@ -1,6 +1,7 @@
 public class MyLinkedList<E>{
     private int length;
     private Node start, end;
+    private Node current;
 
     public MyLinkedList(){ //make comments, special cases, fix second add method
       length = 0;
@@ -12,13 +13,14 @@ public class MyLinkedList<E>{
 
     public void add(E value){
         Node newNode = new Node(value);
-        if (length != 0){
-          newNode.setPrev(end);
-          end.setNext(newNode);
-          end = newNode;
-        } else { //if the length is 0, that means this is the first Node, so start and end link both to the first
-          start = newNode;
-          end = newNode;
+        if (length == 0){
+            start = newNode;
+            end = newNode;
+            current = start;
+        } else {
+            newNode.setPrev(end);
+            end.setNext(newNode);
+            end = newNode;
         }
         length++;
     }
@@ -30,6 +32,7 @@ public class MyLinkedList<E>{
         }
         if (this.length == 0){
             start = other.start;
+            current = start;
         } else {
             this.end.setNext(other.start);
             //second step is to update the first LinkedList's end and length
@@ -52,12 +55,19 @@ public class MyLinkedList<E>{
             //if you are removing from the start, you don't have to update the previous Node since it doesn't exist
             start.next().setPrev(null);
             start = start.next();
+            current = start;
         } else { //a special case happens when the list is 1 element long... you can't call ans.next() or ans.prev()
             start = null;
             end = null;
+            current = null;
         }
         length--;
         return ans;
+    }
+
+    public E next(){ //it is fine to not check for index out of bounds since our implementation of next() never will have that condition
+        current = current.next();
+        return current.data();
     }
 
     public String toString(){

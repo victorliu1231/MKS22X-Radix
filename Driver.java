@@ -29,13 +29,16 @@ public class Driver{
             l4.add(n);
         }
         System.out.println(l3);
+        System.out.println(l3.next()); //1
         l3.extend(l4);
         System.out.println(l3);
         System.out.println(l3.size()); //20
+        System.out.println(l3.next()); //2
         for (int i = 0; i < 10; i++){
             l3.removeFront();
         }
         System.out.println(l3); //from 10 to 20
+        System.out.println(l3.next()); //11
         System.out.println(l3.size()); //10
     }
 }
