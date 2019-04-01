@@ -12,6 +12,7 @@ public class Radix{
         //k is changed depending if there are any variables with more digits than previously thought
         for (int i = 0; i < k; i++){
             for (int n = 0; n < data.length; n++){
+              //could be optimized to remove if statement at the end
                 if (data[n] >= Math.pow(10,k)){
                     k++;
                 }
@@ -22,12 +23,17 @@ public class Radix{
                 }
             }
             for (int bucket = 0; bucket < 10; bucket++){
+              System.out.println("got in loop");
                 result.extend(buckets[bucket]);
+                System.out.println(buckets[bucket]);
+                System.out.println("result"+result);
             }
+            System.out.println(result);
             for (int n = 0; n < data.length; n++){
-                data[n] = result.forward();
+                data[n] = result.removeFront();
             }
         }
+        result.clear();
     }
 
     //gets the number at the digit of the number

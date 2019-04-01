@@ -4,6 +4,7 @@ import java.util.LinkedList;
 
 public class Driver{
     public static void main(String[]args){
+      /*
       MyLinkedList<Integer> l1 = new MyLinkedList<>();
       LinkedList a1 = new LinkedList();
       a1.add(1);
@@ -39,6 +40,7 @@ public class Driver{
       System.out.println(l3); //from 10 to 20
       System.out.println(l3.forward()); //10
       System.out.println(l3.size()); //10
+      */
         //WAIT WHAT ABOUT NEGATIVES
         //TEST RUNTIME
         generate(10000, 10);
@@ -48,7 +50,7 @@ public class Driver{
         Random r = new Random();
         int[] data = new int[numEles];
         for (int i = 0; i < data.length; i++){
-            data[i] = r.nextInt(maxVal);
+            data[i] = Math.abs(r.nextInt(maxVal)); //change for negatives later
         }
         Radix.radixsort(data);
         System.out.println(Arrays.toString(data));
