@@ -16,15 +16,12 @@ public class Radix{
             for (int n = 0; n < data.length; n++){
                 int digit = getDigit(data[n], i);
                 int current = data[n];
-                for (int bucket = 0; bucket < 10; bucket++){
-                    //System.out.println("bucket: "+bucket+", data[n]: "+data[n]+", digit: "+digit+", current place: "+i);
-                    if (current < 0 && bucket == digit){
-                        buckets[9 - bucket].add(current);
-                        //System.out.println(buckets[9 - bucket]);
-                    } else if (digit == bucket){
-                        buckets[10 + bucket].add(current);
-                        //System.out.println(buckets[10 + bucket]);
-                    }
+                if (current < 0){
+                    buckets[9 - digit].add(current);
+                    //System.out.println(buckets[9 - bucket]);
+                } else {
+                    buckets[10 + digit].add(current);
+                    //System.out.println(buckets[10 + bucket]);
                 }
             }
             boolean didNotFindBiggerDigit = true;
