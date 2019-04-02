@@ -8,7 +8,7 @@ public class Radix{
     //Radix sort should get faster when the arraySize : maxValue ratio increases.
     //(More elements and smaller max value)
     public static void radixsort(int[] data){
-        for (int bucket = 0; bucket < 20; bucket++){
+        for (int bucket = 0; bucket < 19; bucket++){
             buckets[bucket] = new MyLinkedList();
         }
         int k = 2;
@@ -17,14 +17,10 @@ public class Radix{
             for (int n = 0; n < data.length; n++){
                 int current = data[n];
                 int digit = getDigit(current, i);
-                if (current < 0){
-                    buckets[9 - digit].add(current);
-                } else {
-                    buckets[10 + digit].add(current);
-                }
+                buckets[9 + digit].add(current);
             }
             boolean didNotFindBiggerDigit = true;
-            for (int bucket = 0; bucket < 20; bucket++){
+            for (int bucket = 0; bucket < 19; bucket++){
                 if (didNotFindBiggerDigit && bucket != 9 && bucket != 10 && buckets[bucket].size() > 0){
                     k++;
                     didNotFindBiggerDigit = false;
@@ -41,7 +37,7 @@ public class Radix{
 
     //gets the number at the digit of the number
     public static int getDigit(int num, int digit){
-        return Math.abs(num / (int)Math.pow(10, digit-1) % 10);
+        return num / (int)Math.pow(10, digit-1) % 10;
     }
 
     public static void print(){
