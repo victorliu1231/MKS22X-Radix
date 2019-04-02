@@ -3,8 +3,8 @@ public class MyLinkedList<E>{
     private Node start, end;
     private Node current;
 
-    public MyLinkedList(){ //make comments, special cases, fix second add method
-      length = 0;
+    public MyLinkedList(){
+        length = 0;
     }
 
     public void clear(){

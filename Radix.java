@@ -10,30 +10,29 @@ public class Radix{
         for (int bucket = 0; bucket < 20; bucket++){
             buckets[bucket] = new MyLinkedList();
         }
-        int k = 1;
+        int k = 2;
         //k is changed depending if there are any variables with more digits than previously thought
-        for (int i = 0; i < k; i++){
+        for (int i = 1; i < k; i++){
             for (int n = 0; n < data.length; n++){
+                int digit = getDigit(data[n], i);
+                int current = data[n];
                 for (int bucket = 0; bucket < 10; bucket++){
-                    int digit = getDigit(data[n], i+1);
                     //System.out.println("bucket: "+bucket+", data[n]: "+data[n]+", digit: "+digit+", current place: "+i);
-                    if (data[n] <= 0 && bucket == digit){
-                        buckets[9 - bucket].add(data[n]);
+                    if (current < 0 && bucket == digit){
+                        buckets[9 - bucket].add(current);
                         //System.out.println(buckets[9 - bucket]);
                     } else if (digit == bucket){
-                        buckets[10 + bucket].add(data[n]);
+                        buckets[10 + bucket].add(current);
                         //System.out.println(buckets[10 + bucket]);
                     }
                 }
             }
-            boolean foundBiggerDigit = false;
-            for (int bucket = 0; bucket < 20 && !foundBiggerDigit; bucket++){
-                if (bucket != 9 && bucket != 10 && buckets[bucket].size() > 0){
-                    k++;
-                    foundBiggerDigit = true;
-                }
-            }
+            boolean didNotFindBiggerDigit = true;
             for (int bucket = 0; bucket < 20; bucket++){
+                if (didNotFindBiggerDigit && bucket != 9 && bucket != 10 && buckets[bucket].size() > 0){
+                    k++;
+                    didNotFindBiggerDigit = false;
+                }
                 result.extend(buckets[bucket]);
                 buckets[bucket].clear();
             }

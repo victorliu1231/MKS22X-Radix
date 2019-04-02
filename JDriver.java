@@ -7,8 +7,13 @@ public class JDriver {
     int[] ary = new int[size];
 	int[] copy = new int[size];
     for(int i = 0; i < ary.length; i++) {
-      ary[i] = (int)(Math.random() * range);
-	  copy[i] = ary[i];
+      if (i == 0){
+        ary[i] = 0;
+        copy[i] = 0;
+      } else {
+        ary[i] = (int)(Math.random() * range);
+        copy[i] = ary[i];
+      }
     }
 	Arrays.sort(copy);
 	long x = System.currentTimeMillis();
