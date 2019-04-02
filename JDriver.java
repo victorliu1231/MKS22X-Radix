@@ -7,7 +7,7 @@ public class JDriver {
     int[] ary = new int[size];
 	int[] copy = new int[size];
     for(int i = 0; i < ary.length; i++) {
-      ary[i] = Math.abs(r.nextInt());
+      ary[i] = (int)(Math.random() * range);
 	  copy[i] = ary[i];
     }
 	Arrays.sort(copy);

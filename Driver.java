@@ -50,9 +50,13 @@ public class Driver{
     public static void generate(int maxVal, int numEles){
         Random r = new Random();
         int[] data = new int[numEles];
+        int[] control = new int[numEles];
         for (int i = 0; i < data.length; i++){
-            data[i] = Math.abs(r.nextInt(maxVal)); //change for negatives later
+            int randInt = r.nextInt() % maxVal;
+            data[i] = randInt;
+            control[i] = randInt;
         }
+        Arrays.sort(data);
         Radix.radixsort(data);
         System.out.println(Arrays.toString(data));
     }
