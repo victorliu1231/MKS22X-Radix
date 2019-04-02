@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class Radix{
     private static MyLinkedList<Integer>[] buckets = new MyLinkedList[10];
     private static MyLinkedList<Integer> result = new MyLinkedList();
@@ -23,17 +25,14 @@ public class Radix{
                 }
             }
             for (int bucket = 0; bucket < 10; bucket++){
-              System.out.println("got in loop");
                 result.extend(buckets[bucket]);
-                System.out.println(buckets[bucket]);
-                System.out.println("result"+result);
+                buckets[bucket].clear();
             }
-            System.out.println(result);
             for (int n = 0; n < data.length; n++){
-                data[n] = result.removeFront();
+                data[n] = result.forward();
             }
+            result.clear();
         }
-        result.clear();
     }
 
     //gets the number at the digit of the number

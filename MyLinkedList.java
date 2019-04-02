@@ -32,13 +32,13 @@ public class MyLinkedList<E>{
         }
         if (this.length == 0){
             start = other.start;
+            end = other.end;
             current = start;
         } else {
             this.end.setNext(other.start);
-            //second step is to update the first LinkedList's end and length
-            this.length += other.length;
             this.end = other.end;
         }
+        this.length += other.length;
     }
 
     public int size(){
@@ -46,10 +46,6 @@ public class MyLinkedList<E>{
     }
 
     public E removeFront(){
-        //if the index is out of bounds, necessary to throw the correct exception
-        if (length == 0){
-            throw new IndexOutOfBoundsException();
-        }
         E ans = start.data();
         if (length > 1){
             //if you are removing from the start, you don't have to update the previous Node since it doesn't exist
@@ -73,17 +69,17 @@ public class MyLinkedList<E>{
     }
 
     public String toString(){
-        Node current = start;
+        Node curr = start;
         String str = "[";
-        //using the while loop and "current" method of indexing instead of getNode(), you avoid O(n^2) and just have O(n)
+        //using the while loop and "curr" method of indexing instead of getNode(), you avoid O(n^2) and just have O(n)
         for (int n = 0; n < length; n++){ //if current IS null, that's the end, and this whole loop terminates
-          str+= current.data();
+          str+= curr.data();
           //below if statement just makes sure you aren't adding commas at the end of the list, and only in the middle
-          if (current.next() != null){
+          if (curr.next() != null){
               str+= ", ";
           }
           //the equivalent of indexing
-          current = current.next();
+          curr = curr.next();
         }
         str += "]";
         return str;
