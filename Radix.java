@@ -11,27 +11,26 @@ public class Radix{
         for (int bucket = 0; bucket < 19; bucket++){
             buckets[bucket] = new MyLinkedList();
         }
-        int k = 2;
+        boolean didNotFindBiggerDigit = true;
+        int i = 1;
         //k is changed depending if there are any variables with more digits than previously thought
-        for (int i = 1; i < k; i++){
+        while (didNotFindBiggerDigit){
             for (int n = 0; n < data.length; n++){
                 int current = data[n];
                 int digit = getDigit(current, i);
                 buckets[9 + digit].add(current);
             }
-            boolean didNotFindBiggerDigit = true;
             for (int bucket = 0; bucket < 19; bucket++){
-                if (didNotFindBiggerDigit && bucket != 9 && bucket != 10 && buckets[bucket].size() > 0){
-                    k++;
-                    didNotFindBiggerDigit = false;
-                }
-                result.extend(buckets[bucket]);
-                buckets[bucket].clear();
+                MyLinkedList currentBucket = buckets[bucket];
+                didNotFindBiggerDigit = bucket != 9 && currentBucket.size() > 0;
+                result.extend(currentBucket);
+                currentBucket.clear();
             }
             for (int n = 0; n < data.length; n++){
                 data[n] = result.forward();
             }
             result.clear();
+            i++;
         }
     }
 
