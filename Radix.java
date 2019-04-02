@@ -1,5 +1,6 @@
 import java.util.Arrays;
 
+@SuppressWarnings("unchecked")
 public class Radix{
     private static MyLinkedList<Integer>[] buckets = new MyLinkedList[20];
     private static MyLinkedList<Integer> result = new MyLinkedList();
@@ -14,14 +15,12 @@ public class Radix{
         //k is changed depending if there are any variables with more digits than previously thought
         for (int i = 1; i < k; i++){
             for (int n = 0; n < data.length; n++){
-                int digit = getDigit(data[n], i);
                 int current = data[n];
+                int digit = getDigit(current, i);
                 if (current < 0){
                     buckets[9 - digit].add(current);
-                    //System.out.println(buckets[9 - bucket]);
                 } else {
                     buckets[10 + digit].add(current);
-                    //System.out.println(buckets[10 + bucket]);
                 }
             }
             boolean didNotFindBiggerDigit = true;
